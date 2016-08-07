@@ -1,0 +1,16 @@
+[
+{
+  "modid": "omg_utilities",
+  "name": "OMG Utilities",
+  "description": "A Special Mod!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://gkbsite.twbbs.org/",
+  "updateUrl": "",
+  "authorList": ["GKB", "tokomikea", "con2000us"],
+  "credits": "Thanks MayaCraft for making the texture.",
+  "logoFile": "logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]

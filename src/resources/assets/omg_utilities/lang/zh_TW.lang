@@ -1,0 +1,10 @@
+#Creative Tab
+itemGroup.OMG_Tabs=OMG Utilities (媽呀 Utilities)
+
+#Blocks
+tile.spiral_chest.name=螺旋箱
+
+#GUI
+omg.gui.sc.stack=物品數量
+omg.gui.sc.prec=增值進度
+omg.gui.sc.tier=等級

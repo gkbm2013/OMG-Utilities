@@ -1,0 +1,10 @@
+#Creative Tab
+itemGroup.OMG_Tabs=OMG Utilities
+
+#Blocks
+tile.spiral_chest.name=Spiral Chest
+
+#GUI
+omg.gui.sc.stack=Stack
+omg.gui.sc.prec=Prec
+omg.gui.sc.tier=Tier
