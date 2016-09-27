@@ -129,7 +129,9 @@ public class SpiralChest extends BlockContainer{
 		            	tag.setString("itemName", tile.getSlots()[1].getItem().getRegistryName().toString());
 		            }
 		            nbt.setTag("nbtTag", tag);
-		            item.setTagCompound(nbt);
+		            if(tile.getSlots()[1] != null){
+		            	item.setTagCompound(nbt);
+		            }
 		        }
 		      }
 	    }

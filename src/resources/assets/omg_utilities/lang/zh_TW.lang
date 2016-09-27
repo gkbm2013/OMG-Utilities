@@ -3,8 +3,12 @@ itemGroup.OMG_Tabs=OMG Utilities (媽呀 Utilities)
 
 #Blocks
 tile.spiral_chest.name=螺旋箱
+tile.lava_provider.name=岩漿供應機
 
 #GUI
 omg.gui.sc.stack=物品數量
 omg.gui.sc.prec=增值進度
 omg.gui.sc.tier=等級
+
+#Waila
+omg.plugin.waila.tankEmpty=(空)

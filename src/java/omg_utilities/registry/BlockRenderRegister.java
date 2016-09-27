@@ -11,6 +11,7 @@ public class BlockRenderRegister {
 	
 	public static void registerBlockRenderer() {
 		reg(BlockRegistry.spiralChest);
+		reg(BlockRegistry.lavaProvider);
 	}
 	
 	public static void reg(Block block) {

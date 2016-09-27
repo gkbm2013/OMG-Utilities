@@ -10,12 +10,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import omg_utilities.handler.GuiHandler;
 import omg_utilities.main.Main;
+import omg_utilities.tileentity.LavaProviderTileEntity;
 import omg_utilities.tileentity.SpiralChestTileEntity;
 
 public class CommonProxy {
 	
 	public void registerTileEntities(){
 		GameRegistry.registerTileEntity(SpiralChestTileEntity.class, Main.MODID+"TileEntitySC");
+		GameRegistry.registerTileEntity(LavaProviderTileEntity.class, Main.MODID+"TileLavaProvider");
 	}
 	
 	public void registerNetworkStuff(){

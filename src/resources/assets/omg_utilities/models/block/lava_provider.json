@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "omg_utilities:blocks/lava_provider"
+    }
+}

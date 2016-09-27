@@ -5,6 +5,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+import omg_utilities.blocks.LavaProvider;
 import omg_utilities.blocks.SpiralChest;
 import omg_utilities.main.Main;
 
@@ -15,13 +16,16 @@ public class BlockRegistry {
 	}
 	
 	public static Block spiralChest;
+	public static Block lavaProvider;
 	
 	private static void preLoadBlock() {
 		spiralChest = new SpiralChest("spiral_chest");
+		lavaProvider = new LavaProvider("lava_provider");
 	}
 	
 	private static void registerBlock() {
 		registerBlock(spiralChest, "spiral_chest");
+		registerBlock(lavaProvider, "lava_provider");
 	}
 	
     public static <K extends IForgeRegistryEntry<?>> K  registerBlock(K object, String name){

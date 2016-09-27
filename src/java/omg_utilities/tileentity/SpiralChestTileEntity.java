@@ -91,11 +91,12 @@ public class SpiralChestTileEntity extends TileEntityContainerAdapter implements
 			if(this.getSlots()[1] != null && this.getSlots()[1].isItemEqual(this.getSlots()[0])){
 				input = true;
 			}else if(this.getSlots()[1] == null){
-				this.getSlots()[1] = new ItemStack(this.getSlots()[0].getItem(), 1).copy();
+				this.getSlots()[1] = this.getSlots()[0].copy();
+				this.getSlots()[1].stackSize = 1;
 				input = true;
 			}
 			
-			if(input){
+			if(input && this.storageAmount < 2147483647){
 				this.storageAmount++;
 				if(getSlots()[0].stackSize == 1){
 					getSlots()[0] = null;
