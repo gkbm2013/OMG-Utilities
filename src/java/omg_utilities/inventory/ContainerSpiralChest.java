@@ -3,6 +3,7 @@ package omg_utilities.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import omg_utilities.tileentity.SpiralChestTileEntity;
@@ -35,7 +36,7 @@ public class ContainerSpiralChest extends Container{
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		return this.tileSC.isUseableByPlayer(playerIn);
+		return this.tileSC.isUsableByPlayer(playerIn);
 	}
 	
 	/**
@@ -44,7 +45,7 @@ public class ContainerSpiralChest extends Container{
 	@Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
 		final int fimINV_SIZE = tileSC.getSizeInventory();
-		ItemStack stack = null;
+		ItemStack stack = ItemStack.EMPTY;
         Slot slotObject = (Slot) inventorySlots.get(slot);
 
         //null checks and checks if the item can be stacked (maxStackSize > 1)
@@ -55,25 +56,25 @@ public class ContainerSpiralChest extends Container{
             //merges the item into player inventory since its in the tileEntity
             if (slot < fimINV_SIZE) {
                     if (!this.mergeItemStack(stackInSlot, fimINV_SIZE, 36+fimINV_SIZE, false)) {
-                            return null; //do nothing if it can't
+                            return ItemStack.EMPTY; //do nothing if it can't
                     }
             }
             //ItemStack is in player
             else {
             	//Any item is in player
             	if (!this.mergeItemStack(stackInSlot, INPUT, INPUT+1, false)){
-        			return null;
+        			return ItemStack.EMPTY;
         		}
             	// place in action bar
     			else if (slot < fimINV_SIZE+27) {
     				if (!this.mergeItemStack(stackInSlot, fimINV_SIZE+27, fimINV_SIZE+36, false)){
-    					return null;
+    					return ItemStack.EMPTY;
     				}
     			}
     			// item in action bar - place in player inventory
     			else if (slot >= fimINV_SIZE+27 && slot < fimINV_SIZE+36 ){
     				if (!this.mergeItemStack(stackInSlot, fimINV_SIZE, fimINV_SIZE+27, false)){
-    					return null;
+    					return ItemStack.EMPTY;
     				}
     			}
             }
@@ -82,31 +83,49 @@ public class ContainerSpiralChest extends Container{
 //                    return null;
 //            }
 
-                if (stackInSlot.stackSize == 0) {
-                        slotObject.putStack(null);
+                if (stackInSlot.getCount() == 0) {
+                        slotObject.putStack(ItemStack.EMPTY);
                 } else {
                         slotObject.onSlotChanged();
                 }
 
-                if (stackInSlot.stackSize == stack.stackSize) {
-                        return null;
+                if (stackInSlot.getCount() == stack.getCount()) {
+                        return ItemStack.EMPTY;
                 }
-                slotObject.onPickupFromSlot(player, stackInSlot);
+                slotObject.onSlotChanged();
         }
         return stack;
     }
 	
-	@Override
+	/*@Override
 	public void detectAndSendChanges(){
 		super.detectAndSendChanges();
-		/*for(int i = 0; i < this.crafters.size(); ++i){
+		for(int i = 0; i < this.crafters.size(); ++i){
 			ICrafting craft = (ICrafting) this.crafters.get(i);
 			
 			//if(this.lastInputTime != this.tileFIM.inputTime){
 				//craft.sendProgressBarUpdate(this, 0, this.tileFIM.inputTime);
 			//}
-		}*/
+		}
 		
 		//this.lastInputTime = this.tileFIM.inputTime;
-	}
+	}*/
+	
+	@Override
+	public void detectAndSendChanges(){
+		super.detectAndSendChanges();
+        /*for (int i = 0; i < this.inventorySlots.size(); ++i){
+            ItemStack itemstack = ((Slot)this.inventorySlots.get(i)).getStack();
+            ItemStack itemstack1 = (ItemStack)this.inventoryItemStacks.get(i);
+            
+            if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)){
+                itemstack1 = itemstack.isEmpty() ? ItemStack.EMPTY : itemstack.copy();
+                this.inventoryItemStacks.set(i, itemstack1);
+
+                for (int j = 0; j < this.listeners.size(); ++j){
+                    ((IContainerListener)this.listeners.get(j)).sendSlotContents(this, i, itemstack1);
+                }
+            }
+        }*/
+    }
 }

@@ -1,5 +1,6 @@
 package omg_utilities.tileentity;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -7,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.translation.I18n;
 
 public abstract class TileEntityContainerAdapter extends TileEntity  implements ISidedInventory{
 	
@@ -22,6 +22,11 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 	public TileEntityContainerAdapter(String name, int slotsNum, int stackLimit ) {
 		this.name = name;
 		this.slots = new ItemStack[slotsNum];
+		for(int i = 0; i < slotsNum; i++){
+			slots[i] = ItemStack.EMPTY;
+			//slots[i] = new ItemStack(new NBTTagCompound());
+			//slots[i].setCount(0);
+		}
 		this.stackLimit = stackLimit;
 	}
 	
@@ -33,7 +38,7 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 	public String getName() {
 		String langFileName = "tile." + this.getBlockType().getUnlocalizedName().substring(5) + ".name";
 		return this.hasCustomName() ?
-				this.name : I18n.translateToLocal(langFileName);
+				this.name : I18n.format(langFileName);
 	}
 	
 	@Override
@@ -68,6 +73,9 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 	 */
 	@Override
 	public ItemStack getStackInSlot(int index) {
+		if(this.slots[index] == null){
+			this.slots[index] = ItemStack.EMPTY;
+		}
 		return this.slots[index];
 	}
 	
@@ -78,15 +86,15 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 	public ItemStack decrStackSize(int index, int count) {
 		if (this.slots[index] != null) {
 			ItemStack itemstack;
-			if (this.slots[index].stackSize <= count) {
+			if (this.slots[index].getCount() <= count) {
 				itemstack = this.slots[index];
 				this.slots[index] = null;
 				return itemstack;
 			} else {
 				itemstack = this.slots[index].splitStack(count);
 
-				if (this.slots[index].stackSize == 0) {
-					this.slots[index] = null;
+				if (this.slots[index].getCount() == 0) {
+					this.slots[index] = ItemStack.EMPTY;
 				}
 				return itemstack;
 			}
@@ -124,9 +132,8 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 	public void setInventorySlotContents(
 			int slot, ItemStack itemstack) {
 		this.slots[slot] = itemstack;
-
-		if (itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()) {
-			itemstack.stackSize = this.getInventoryStackLimit();
+		if (itemstack != null && itemstack.getCount() > this.getInventoryStackLimit()) {
+			itemstack.setCount(this.getInventoryStackLimit());
 		}
 	}
 	
@@ -134,8 +141,8 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
-		return this.worldObj.getTileEntity(this.pos) != this ? false :
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) != this ? false :
 			player.getDistanceSq(this.pos.add(0.5D, 0.5D, 0.5D)) <= 64.0D;
 	}
 	
@@ -171,7 +178,8 @@ public abstract class TileEntityContainerAdapter extends TileEntity  implements 
 			byte b = nbt1.getByte("Slot");
 
 			if (b >= 0 && b < this.slots.length) {
-				slots[b] = ItemStack.loadItemStackFromNBT(nbt1);
+				//slots[b] = ItemStack.loadItemStackFromNBT(nbt1);
+				slots[b] = new ItemStack(nbt1);
 			}
 		}
 	}

@@ -44,7 +44,7 @@ public class SpiralChest extends BlockContainer{
     }
 	
 	@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
     {
 	    if(playerIn.isSneaking()) {
 	        return false;
@@ -89,7 +89,6 @@ public class SpiralChest extends BlockContainer{
 					int timer = nbt.getInteger("timer");
 					int speed = nbt.getInteger("speed");
 					String itemName = nbt.getString("itemName");
-					
 					tile.setValue(storageAmount, tier, timer, speed, itemName);
 				}
 			}
@@ -105,7 +104,7 @@ public class SpiralChest extends BlockContainer{
 	    //IBlockState state = world.getBlockState(pos);
 	    this.onBlockDestroyedByPlayer(world, pos, state);
 	    if(willHarvest) {
-	      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), null);
+	      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), ItemStack.EMPTY);
 	    }
 
 	    world.setBlockToAir(pos);
@@ -114,7 +113,6 @@ public class SpiralChest extends BlockContainer{
 	
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		
 	    List<ItemStack> items = super.getDrops(world, pos, state, fortune);
 	    
 	    TileEntity te = world.getTileEntity(pos);

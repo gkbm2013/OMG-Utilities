@@ -38,7 +38,7 @@ public class LavaProviderTileEntity extends TileEntity implements IFluidHandler,
 	
 	@Override
 	public void update() {
-		if(worldObj.isRemote){return;}
+		if(world.isRemote){return;}
 		if(this.getInfo().fluid == null || this.getInfo().fluid.amount < this.getInfo().capacity){
 			if(clock >= 20){
 				this.fill(lavaStack, true);
@@ -176,10 +176,10 @@ public class LavaProviderTileEntity extends TileEntity implements IFluidHandler,
 	}
 	
 	private void notifyBlockUpdate(){
-		if(worldObj!=null && pos != null){
-			IBlockState state = worldObj.getBlockState(pos);
-			worldObj.notifyBlockUpdate(pos, state, state, 3);
-			worldObj.markChunkDirty(pos, this);
+		if(world!=null && pos != null){
+			IBlockState state = world.getBlockState(pos);
+			world.notifyBlockUpdate(pos, state, state, 3);
+			world.markChunkDirty(pos, this);
 		}
 	}
 

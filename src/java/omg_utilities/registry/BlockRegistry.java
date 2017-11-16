@@ -4,13 +4,14 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
+//import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import omg_utilities.blocks.LavaProvider;
 import omg_utilities.blocks.SpiralChest;
 import omg_utilities.main.Main;
 
+@Deprecated
 public class BlockRegistry {
-	public static void mainRegistry() {
+	/*public static void mainRegistry() {
 		preLoadBlock();
 		registerBlock();
 	}
@@ -34,5 +35,5 @@ public class BlockRegistry {
     	GameRegistry.register(object);
     	GameRegistry.register(new ItemBlock((Block) object).setRegistryName(object.getRegistryName()));
     	return object;
-    }
+    }*/
 }

@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import omg_utilities.registry.BlockRenderRegister;
 
 public class ClientProxy extends CommonProxy{
 	
@@ -18,7 +17,7 @@ public class ClientProxy extends CommonProxy{
 	 // player even when you are on the server! Sounds absurd, but it's true.
 
 	 // Solution is to double-check side before returning the player:
-	 return (ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : super.getPlayerEntity(ctx));
+	 return (ctx.side.isClient() ? Minecraft.getMinecraft().player : super.getPlayerEntity(ctx));
 	}
 	
 	@EventHandler
@@ -27,7 +26,7 @@ public class ClientProxy extends CommonProxy{
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
-		BlockRenderRegister.registerBlockRenderer();
+		//BlockRenderRegister.registerBlockRenderer();
 	}
 
 	@EventHandler
